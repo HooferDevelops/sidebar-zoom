@@ -28,7 +28,6 @@ module.exports = class SidebarZoom extends Plugin {
     }
 
     zoomCheck(event) {
-        console.log(event.code)
         if (event.code == 'Minus' && (event.ctrlKey || event.metaKey) && (event.shiftKey)) {
             totalZoom -= 0.1;
         }
