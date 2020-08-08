@@ -9,7 +9,7 @@ The following plugin was suggested here: https://github.com/powercord-community/
 
 
 ## Quick Installation
-Go to your themes folder and run the following:
+Go to your plugins folder and run the following:
 
     git clone https://github.com/HooferDevelops/sidebar-zoom
 
