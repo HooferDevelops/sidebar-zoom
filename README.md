@@ -7,6 +7,15 @@ The following plugin was suggested here: https://github.com/powercord-community/
 ## Pictures
 ![Scaling Preview](https://cdn.discordapp.com/attachments/738968109288914976/741729665424818240/BnQMMi3Iji.gif)
 
+## Controls
+Zoom In:
+> Ctrl Shift +
+
+Zoom out:
+> Ctrl Shift -
+
+Reset Zoom:
+> Ctrl Shift R
 
 ## Quick Installation
 Go to your plugins folder and run the following:
