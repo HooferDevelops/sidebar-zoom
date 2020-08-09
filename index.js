@@ -31,9 +31,9 @@ module.exports = class SidebarZoom extends Plugin {
         if (event.code == 'Minus' && (event.ctrlKey || event.metaKey) && (event.shiftKey)) {
             if(totalZoom <= 0.15){
                 totalZoom = 0.1;
-                return;
+            } else {
+                totalZoom -= 0.1;
             }
-            totalZoom -= 0.1;
         }
         if ((event.code == 'Equal' || event.Code == "Plus") && (event.ctrlKey || event.metaKey) && (event.shiftKey)) {
             totalZoom += 0.1;
