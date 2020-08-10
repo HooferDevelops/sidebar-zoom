@@ -13,6 +13,9 @@ module.exports = class SidebarZoom extends Plugin {
     
 
     startPlugin(){
+        if (isNaN(window.localStorage.getItem("sidebar-zoom")){
+            window.localStorage.setItem("sidebar-zoom", 1)
+        }
         document.addEventListener('keydown', this.zoomCheck) 
         /* couldn't get Powercord's native keybind input to work,
         so i'll have to use this until i find a fix. */         
