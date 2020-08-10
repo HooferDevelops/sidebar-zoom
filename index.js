@@ -8,6 +8,7 @@ const { Powercord } = require('../pc-updater/components/Icons');
 var totalZoom = window.localStorage.getItem("sidebar-zoom") || 1;
 var style;
 
+window.localStorage.setItem("sidebar-zoom", totalZoom);
 
 module.exports = class SidebarZoom extends Plugin {
     
