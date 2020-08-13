@@ -1,7 +1,8 @@
 {
     "name": "Sidebar Zoom",
-    "version": "1.2.2",
+    "version": "1.3.0",
     "description": "Change the size of the sidebar.",
     "author": "Hoofer#0001 | iman.engineer",
-    "license": "MIT"
+    "license": "MIT",
+    "permissions": ["keypresses"]
 }
