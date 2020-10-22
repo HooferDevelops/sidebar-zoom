@@ -1,32 +1,51 @@
 const { Plugin } = require('powercord/entities');
-const { React, getModule, FluxDispatcher, i18n: { Messages } } = require('powercord/webpack');
-const { description } = require('../pc-commands/commands/echo');
-const { Powercord } = require('../pc-updater/components/Icons');
+const { getModule } = require('powercord/webpack');
 
-/* HAHAHA LOCALSTORAGE GO BRRRRRRRRRRRR, IMAGINE USING A REAL SETTINGS SYSTEM HAHA */
+var style, get, set, totalZoom, sidebar;
 
-var totalZoom = window.localStorage.getItem("sidebar-zoom") || 1;
-var style;
-
-window.localStorage.setItem("sidebar-zoom", totalZoom);
+function template(scale){
+    return `
+    .${sidebar} > nav {
+        transform: scale(${scale});
+        width: ${100/(scale*100)*100}%;
+        transform-origin: 0 0;
+    }
+    .${sidebar} > section {
+        transform: scale(${scale});
+        width: ${100/(scale*100)*100}%;
+        transform-origin: 0 100%;
+    }
+    .${sidebar} {
+        width: ${240*scale}px;
+    }
+    `
+}
 
 module.exports = class SidebarZoom extends Plugin {
-    
+    async startPlugin(){
+        sidebar = await getModule(['activityPanel'])
+        sidebar = sidebar.sidebar
 
-    startPlugin(){
-        if (isNaN(window.localStorage.getItem("sidebar-zoom"))) {
-            window.localStorage.setItem("sidebar-zoom", 1)
-        }
+        // settings stuff
+        get = this.settings.get;
+        set = this.settings.set;
+        if (!get("sidebar-zoom-amt"))
+            set("sidebar-zoom-amt", 1)
+        totalZoom = get("sidebar-zoom-amt");
+
         document.addEventListener('keydown', this.zoomCheck) 
         /* couldn't get Powercord's native keybind input to work,
-        so i'll have to use this until i find a fix. */         
+        so i'll have to use this until i find a fix. */   
+
+        // my super cool css manager
         style = document.createElement('style');
         document.head.appendChild(style);
         style.type = 'text/css';
-        style.appendChild(document.createTextNode(`.sidebar-2K8pFh{ zoom: ${totalZoom}; }`));
+        style.appendChild(document.createTextNode(template(totalZoom)));
     }
 
     pluginWillUnload(){
+        // remove styling and keydown check
         document.removeEventListener('keydown', this.zoomCheck)
         style.parentNode.removeChild(style);
     }
@@ -43,11 +62,9 @@ module.exports = class SidebarZoom extends Plugin {
             totalZoom += 0.1;
         }
         if (event.code == 'KeyR' && (event.ctrlKey || event.metaKey) && (event.shiftKey)) {
-            
             totalZoom = 1;
         }
-        window.localStorage.setItem("sidebar-zoom", totalZoom);
-        style.replaceChild(document.createTextNode(`.sidebar-2K8pFh{ zoom: ${totalZoom}; }`), style.childNodes[0]);
+        set("sidebar-zoom-amt", totalZoom)
+        style.replaceChild(document.createTextNode(template(totalZoom)), style.childNodes[0]);
     };
-
 };
